@@ -5,9 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Quintary - A binary converter.</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     .hidden { display: none; }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+button {
+  background: #f2f2f2;
+  border-radius: 5px;
+  margin: 10px;
+  width: 100px;
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+  transition: all .3s;
+}
+textarea, input[type="text"] {
+  background: #f2f2f2;
+  border-radius: 5px;
+  border: none;
+  transition: all .3s;
+}
+textarea::placeholder, input[type="text"]::placeholder {
+   color: #ccc;
+   transition: all .3s;
+}
+button:hover, textarea:hover, input[type="text"]:hover {
+  background: #c7c7c7;
+  color: #808080;
+}
+textarea:hover::placeholder, input[type="text"]:hover::placeholder {
+  color: #808080;
+}
+.container {
+  background: #d6d6d6;
+  text-align: center;
+  border-radius: 10px;
+}
+.container hr {
+  border: none;
+  height: 1px;
+  background: #808080;
+}
+#error {
+  color: green;
+  transition: content .2s;
+}
+
+label, h1, h2, h3 {
+  color: #ccc;
+  transition: all .3s;
+}
+
+label:hover, h1:hover, h2:hover, h3:hover {
+  color: #707070;
+}
+
+a {
+  color: #616161;
+  text-decoration: none;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  background: #616161;
+  transition: width .2s;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+.advanced {
+  row-gap: 10px;
+}
+
   </style>
 </head>
 <body>
