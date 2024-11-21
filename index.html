@@ -11,6 +11,9 @@
   </style>
 </head>
 <body>
+  <header>
+    <>
+  </header>
   <div class="container">
     <br>
     <label id="error">*</label><br>
@@ -23,16 +26,10 @@
     <label>Advanced: </label><br>
     <div class="advanced">
     <button id="randomBinary">Random Binary</button> 
-    <button id="addLetterBinary">Add Letter Binary</button> 
     <div id="randomBO" class="hidden"> 
       <input type="text" id="randomBA"> 
       <button id="randomBABtn">Generate Random Binary</button>
       <button id="closerBO">Close <ion-icon name="close-circle-outline"></ion-icon></button>
-    </div><br>
-    <div id="addLBD" class="hidden"> 
-      <input type="text" id="addLBI"> 
-      <button id="addLBIBtn">Add Letter in Binary</button>
-      <button id="closeaLBD">Close <ion-icon name="close-circle-outline"></ion-icon></button>
     </div><br>
     </div>
     <hr>
@@ -52,11 +49,6 @@
     const randomBA = document.getElementById("randomBA");
     const error = document.getElementById("error");
     const randomBO = document.getElementById("randomBO");
-    const addLBD = document.getElementById("addLBD");
-    const addLBI = document.getElementById("addLBI");
-    const addLBIBtn = document.getElementById("addLBIBtn");
-    const addLetterBinary = document.getElementById("addLetterBinary");
-    const closeaLBD = document.getElementById("closeaLBD");
     const closerBO = document.getElementById("closerBO");
     const txtlen = document.getElementById("txtlen");
     const bintxtlen = document.getElementById("bintxtlen");
@@ -126,20 +118,7 @@
       }
     });
 
-    addLetterBinary.addEventListener("click", () => {
-      addLBD.classList.remove("hidden");
-    })
-
     let binary = ""
-    
-    addLBIBtn.addEventListener("click", () => {
-      const text = addLBI.value;
-      binary = binary + Array.from(text)
-        .map(char => char.charCodeAt(0).toString(2).padStart(8, '0'))
-        .join(' ') + " ";
-      bintxt.value = binary;
-      addLBI.value = "";
-    })
 
     closeaLBD.addEventListener("click", () => {
       addLBD.classList.add("hidden");
