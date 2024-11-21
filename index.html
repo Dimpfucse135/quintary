@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Quintary - A binary converter.</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <br>
+    <label id="error">*</label><br>
+    <textarea id="bintxt" placeholder="Enter some binary here (Input/Output)" rows="10" cols="50"></textarea><br>
+    <label id="bintxtlen">Length: 0</label>
+    <hr>
+    <button id="convertToText">Convert binary to text</button><br>
+    <button id="convertToBinary">Convert text to binary</button><br>
+    <hr>
+    <label>Advanced: </label><br>
+    <div class="advanced">
+    <button id="randomBinary">Random Binary</button> 
+    <button id="addLetterBinary">Add Letter Binary</button> 
+    <div id="randomBO" class="hidden"> 
+      <input type="text" id="randomBA"> 
+      <button id="randomBABtn">Generate Random Binary</button>
+      <button id="closerBO">Close <ion-icon name="close-circle-outline"></ion-icon></button>
+    </div><br>
+    <div id="addLBD" class="hidden"> 
+      <input type="text" id="addLBI"> 
+      <button id="addLBIBtn">Add Letter in Binary</button>
+      <button id="closeaLBD">Close <ion-icon name="close-circle-outline"></ion-icon></button>
+    </div><br>
+    </div>
+    <hr>
+    <textarea id="txt" placeholder="Enter some text here (Input/Output)" rows="10" cols="50"></textarea><br>
+    <label id="txtlen">Length: 0</label>
+    <br>
+  </div>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script>
+    const randomBinaryBtn = document.getElementById("randomBinary");
+    const bintxt = document.getElementById("bintxt");
+    const txt = document.getElementById("txt");
+    const convertToTextBtn = document.getElementById("convertToText");
+    const convertToBinaryBtn = document.getElementById("convertToBinary");
+    const randomBABtn = document.getElementById("randomBABtn");
+    const randomBA = document.getElementById("randomBA");
+    const error = document.getElementById("error");
+    const randomBO = document.getElementById("randomBO");
+    const addLBD = document.getElementById("addLBD");
+    const addLBI = document.getElementById("addLBI");
+    const addLBIBtn = document.getElementById("addLBIBtn");
+    const addLetterBinary = document.getElementById("addLetterBinary");
+    const closeaLBD = document.getElementById("closeaLBD");
+    const closerBO = document.getElementById("closerBO");
+    const txtlen = document.getElementById("txtlen");
+    const bintxtlen = document.getElementById("bintxtlen");
+
+    function getRandValues() {
+      return Array.from({ length: 8 }, () => Math.floor(Math.random() * 2)).join('');
+    }
+
+    function convertToBinary() {
+      const text = txt.value;
+      const binary = Array.from(text)
+        .map(char => char.charCodeAt(0).toString(2).padStart(8, '0'))
+        .join(' ');
+      bintxt.value = binary;
+      txtlen.textContent = `Length: ${txt.value.length}`;
+      bintxtlen.textContent = `Length: ${bintxt.value.trim().split(/\s+/).length}`;
+    }
+
+    function convertToText() {
+      const binary = bintxt.value.trim().split(/\s+/); // Split by any whitespace
+      let text = "";
+
+      try {
+        text = binary.map(bin => {
+          if (bin.match(/^[01]+$/) && bin.length % 8 === 0) {
+            return String.fromCharCode(parseInt(bin, 2));
+          } else {
+            throw new Error("Invalid binary sequence");
+          }
+        }).join('');
+        error.style.color = "green";
+        error.textContent = "*";
+      } catch (e) {
+        error.textContent = `* {Invalid Binary Input}`;
+        error.style.color = "red";
+      }
+
+      txt.value = text;
+      txtlen.textContent = `Length: ${txt.value.length}`;
+      bintxtlen.textContent = `Length: ${bintxt.value.trim().split(/\s+/).length}`;
+    }
+
+    convertToTextBtn.addEventListener("click", () => {
+      convertToText();
+    });
+
+    convertToBinaryBtn.addEventListener("click", () => {
+      convertToBinary();
+    });
+
+    randomBinaryBtn.addEventListener("click", () => {
+      randomBO.classList.remove("hidden");
+    });
+
+    randomBABtn.addEventListener("click", () => {
+      if (randomBA.value <= 300) {
+      const randomBinary = Array.from({ length: parseInt(randomBA.value) }, () => getRandValues()).join(' ');
+      bintxt.value = randomBinary;
+      bintxtlen.textContent = `Length: ${bintxt.value.trim().split(/\s+/).length}`;
+      randomBO.classList.add("hidden");
+      randomBA.value = "";
+      error.style.color = "green";
+      error.textContent = "*";
+      } else {
+      error.textContent = `* {Too much letters in binary}`;
+      error.style.color = "red";
+      }
+    });
+
+    addLetterBinary.addEventListener("click", () => {
+      addLBD.classList.remove("hidden");
+    })
+
+    let binary = ""
+    
+    addLBIBtn.addEventListener("click", () => {
+      const text = addLBI.value;
+      binary = binary + Array.from(text)
+        .map(char => char.charCodeAt(0).toString(2).padStart(8, '0'))
+        .join(' ') + " ";
+      bintxt.value = binary;
+      addLBI.value = "";
+    })
+
+    closeaLBD.addEventListener("click", () => {
+      addLBD.classList.add("hidden");
+      binary = ""
+    })
+
+    closerBO.addEventListener("click", () => {
+      randomBO.classList.add("hidden");
+    })
+    
+    bintxt.addEventListener("input", () => {
+      bintxtlen.textContent = `Length: ${bintxt.value.trim().split(/\s+/).length}`;
+    });
+
+    txt.addEventListener("input", () => {
+      txtlen.textContent = `Length: ${txt.value.length}`;
+    });
+  </script>
+</body>
+</html>
